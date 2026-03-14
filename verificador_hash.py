@@ -16,8 +16,8 @@ Uso:
 Ejemplo:
     python verificador_hash.py mensaje.txt mensaje.txt.dec.txt
 
-Autor: <TU NOMBRE>
-Fecha: <FECHA>
+Autor: Sebastián Tralma
+Fecha: 14/03/2026
 """
 
 import hashlib
@@ -46,20 +46,16 @@ def calcular_hash(ruta_archivo):
         4. Retornar el hexdigest.
     """
     # TODO: Crear el objeto SHA-256
-    # Pista: sha256 = hashlib.sha256()
-    sha256 = None  # Reemplaza esto
+    sha256 = hashlib.sha256()
 
     # TODO: Abrir el archivo en modo binario ("rb") y leer en bloques.
     #       Para cada bloque, actualizar el hash con sha256.update(bloque).
-    #
-    # Pista:
-    #   with open(ruta_archivo, "rb") as f:
-    #       for bloque in iter(lambda: f.read(4096), b""):
-    #           sha256.update(bloque)
-    pass  # Reemplaza esto
+    with open(ruta_archivo, "rb") as f:
+        for bloque in iter(lambda: f.read(4096), b""):
+            sha256.update(bloque)
 
     # TODO: Retornar sha256.hexdigest()
-    return None  # Reemplaza esto
+    return sha256.hexdigest()
 
 
 def comparar_hashes(hash1, hash2):
@@ -91,10 +87,10 @@ def mostrar_resultado(archivo1, archivo2, hash1, hash2, iguales):
     print("║                                                          ║")
 
     if iguales:
-        print("║  Resultado: ✅ INTEGRIDAD VERIFICADA                    ║")
+        print("║  Resultado: INTEGRIDAD VERIFICADA                    ║")
         print("║  Los archivos son idénticos.                             ║")
     else:
-        print("║  Resultado: ❌ INTEGRIDAD FALLIDA                       ║")
+        print("║  Resultado: INTEGRIDAD FALLIDA                       ║")
         print("║  Los archivos son DIFERENTES.                            ║")
 
     print("╚══════════════════════════════════════════════════════════╝\n")
@@ -119,7 +115,7 @@ def main():
     # Verificar que los archivos existen
     for archivo in [archivo1, archivo2]:
         if not os.path.exists(archivo):
-            print(f"❌ Error: No se encontró el archivo '{archivo}'")
+            print(f"Error: No se encontró el archivo '{archivo}'")
             sys.exit(1)
 
     # Calcular hashes
@@ -127,7 +123,7 @@ def main():
     hash2 = calcular_hash(archivo2)
 
     if hash1 is None or hash2 is None:
-        print("❌ Error: calcular_hash() retornó None.")
+        print("Error: calcular_hash() retornó None.")
         print("   Completa los TODO en la función calcular_hash().")
         sys.exit(1)
 

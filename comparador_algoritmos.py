@@ -13,8 +13,8 @@ Descripción:
 Uso:
     python comparador_algoritmos.py <archivo.txt>
 
-Autor: <TU NOMBRE>
-Fecha: <FECHA>
+Autor: Sebastián Tralma
+Fecha: 14/03/2026
 """
 
 from Crypto.Cipher import AES, DES
@@ -166,7 +166,7 @@ def mostrar_tabla_comparativa(resultados):
 
     print(f"║  {'Integridad verificada':<30} ", end="")
     for r in resultados:
-        estado = "✅ Sí" if r["integridad"] else "❌ No"
+        estado = "Si" if r["integridad"] else "[X] No"
         print(f"│ {estado:>10} ", end="")
     print("║")
 
@@ -179,7 +179,7 @@ def mostrar_observaciones():
     Muestra la sección de observaciones que el estudiante debe completar.
     """
     print("\n┌──────────────────────────────────────────────────────────────────┐")
-    print("│  OBSERVACIONES (completa con tu análisis)                       │")
+    print("│  OBSERVACIONES                       │")
     print("├──────────────────────────────────────────────────────────────────┤")
     print("│                                                                  │")
     print("│  1. ¿Por qué el cyphertext de DES es diferente al de AES?       │")
@@ -214,7 +214,7 @@ def main():
     archivo = sys.argv[1]
 
     if not os.path.exists(archivo):
-        print(f"❌ Error: No se encontró '{archivo}'")
+        print(f"Error: No se encontró '{archivo}'")
         sys.exit(1)
 
     # Leer archivo
@@ -222,12 +222,12 @@ def main():
         plaintext = f.read()
 
     if len(plaintext.encode("utf-8")) > TAMANIO_MAX:
-        print(f"❌ Error: El archivo excede {TAMANIO_MAX} bytes")
+        print(f"Error: El archivo excede {TAMANIO_MAX} bytes")
         sys.exit(1)
 
     plaintext_bytes = plaintext.encode("utf-8")
 
-    print(f"\n📊 Comparando algoritmos con '{archivo}' ({len(plaintext_bytes)} bytes)...")
+    print(f"\nComparando algoritmos con '{archivo}' ({len(plaintext_bytes)} bytes)...")
 
     # Ejecutar cada algoritmo
     resultados = []
@@ -240,7 +240,7 @@ def main():
     mostrar_tabla_comparativa(resultados)
     mostrar_observaciones()
 
-    print("\n💡 Tip: Captura esta pantalla como evidencia para tu entrega.\n")
+    print("\nTip: Captura esta pantalla como evidencia para tu entrega.\n")
 
 
 if __name__ == "__main__":

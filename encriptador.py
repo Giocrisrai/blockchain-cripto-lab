@@ -13,8 +13,8 @@ Uso:
     python encriptador.py cifrar <archivo.txt>
     python encriptador.py descifrar <archivo.enc>
 
-Autor: <TU NOMBRE>
-Fecha: <FECHA>
+Autor: Sebastián Tralma
+Fecha: 14/03/2026
 """
 
 # ──────────────────────────────────────────────────────────────
@@ -54,18 +54,16 @@ def generar_llave():
         - La llave debe tener exactamente 32 bytes para AES-256.
     """
     if os.path.exists(ARCHIVO_LLAVE):
-        # TODO: Leer la llave desde el archivo ARCHIVO_LLAVE en modo binario ("rb")
-        #       y retornarla. Imprime "Llave cargada desde 'secret.key'".
-        #
-        # Pista: with open(ARCHIVO_LLAVE, "rb") as f: ...
-        pass
+        with open(ARCHIVO_LLAVE, "rb") as f:
+            key = f.read()
+        print("  Llave cargada desde 'secret.key'")
+        return key
     else:
-        # TODO: Generar una llave nueva usando get_random_bytes(TAMANIO_LLAVE),
-        #       guardarla en el archivo ARCHIVO_LLAVE en modo binario ("wb"),
-        #       imprimir "Nueva llave generada y guardada" y retornarla.
-        #
-        # Pista: key = get_random_bytes(TAMANIO_LLAVE)
-        pass
+        key = get_random_bytes(TAMANIO_LLAVE)
+        with open(ARCHIVO_LLAVE, "wb") as f:
+            f.write(key)
+        print("  Nueva llave generada y guardada")
+        return key
 
 
 def cifrar_archivo(ruta_archivo, key):
@@ -95,9 +93,8 @@ def cifrar_archivo(ruta_archivo, key):
         7. Retornar el IV y el cyphertext.
     """
     # Paso 1: Leer el archivo
-    # TODO: Abrir ruta_archivo en modo lectura ("r") con encoding="utf-8"
-    #       y leer todo su contenido en la variable `plaintext`.
-    plaintext = ""  # Reemplaza esto
+    with open(ruta_archivo, "r", encoding="utf-8") as f:
+        plaintext = f.read()
 
     # Paso 2: Validar tamaño
     if len(plaintext.encode("utf-8")) > TAMANIO_MAX_ARCHIVO:
@@ -107,23 +104,17 @@ def cifrar_archivo(ruta_archivo, key):
     plaintext_bytes = plaintext.encode("utf-8")
 
     # Paso 4: Crear el cifrador AES en modo CBC
-    # TODO: Crear un objeto cipher usando AES.new(key, AES.MODE_CBC)
-    #       El IV se genera automáticamente al no especificarlo.
-    cipher = None  # Reemplaza esto
+    cipher = AES.new(key, AES.MODE_CBC)
 
     # Paso 5: Aplicar padding
-    # TODO: Usar pad(plaintext_bytes, TAMANIO_BLOQUE) para agregar relleno
-    #       al texto plano. Guardar en la variable `padded_data`.
-    padded_data = None  # Reemplaza esto
+    padded_data = pad(plaintext_bytes, TAMANIO_BLOQUE)
 
     # Paso 6: Cifrar
-    # TODO: Usar cipher.encrypt(padded_data) para cifrar.
-    #       Guardar en la variable `cyphertext`.
-    cyphertext = None  # Reemplaza esto
+    cyphertext = cipher.encrypt(padded_data)
 
     # Paso 7: Obtener el IV y retornar
     if cipher is None or cyphertext is None:
-        print("  ❌ No se pudo cifrar. Completa los TODO en cifrar_archivo().")
+        print(" No se pudo cifrar. Completa los TODO en cifrar_archivo().")
         return None, None
 
     iv = cipher.iv
@@ -156,16 +147,16 @@ def descifrar(iv, cyphertext, key):
         4. Convertir de bytes a string (UTF-8).
     """
     # TODO: Paso 1 — Crear descifrador usando AES.new(key, AES.MODE_CBC, iv=iv)
-    cipher = None  # Reemplaza esto
+    cipher = AES.new(key, AES.MODE_CBC, iv=iv)
 
     # TODO: Paso 2 — Descifrar usando cipher.decrypt(cyphertext)
-    padded_plaintext = None  # Reemplaza esto
+    padded_plaintext = cipher.decrypt(cyphertext)
 
     # TODO: Paso 3 — Remover padding usando unpad(padded_plaintext, TAMANIO_BLOQUE)
-    plaintext_bytes = None  # Reemplaza esto
+    plaintext_bytes = unpad(padded_plaintext, TAMANIO_BLOQUE)
 
     # TODO: Paso 4 — Decodificar de bytes a string con .decode("utf-8")
-    plaintext = None  # Reemplaza esto
+    plaintext = plaintext_bytes.decode("utf-8")
 
     if plaintext is None:
         print("  ❌ No se pudo descifrar. Completa los TODO en descifrar().")
@@ -240,13 +231,13 @@ def main():
     archivo = sys.argv[2]
 
     if accion == "cifrar":
-        print(f"\n🔒 Cifrando '{archivo}'...")
+        print(f"\n Cifrando '{archivo}'...")
         print("─" * 40)
 
         # Generar o cargar llave
         key = generar_llave()
         if key is None:
-            print("❌ Error: La función generar_llave() retornó None.")
+            print("Error: La función generar_llave() retornó None.")
             print("   Completa los TODO en la función generar_llave().")
             sys.exit(1)
 
@@ -254,11 +245,11 @@ def main():
         try:
             iv, cyphertext = cifrar_archivo(archivo, key)
         except Exception as e:
-            print(f"❌ Error al cifrar: {e}")
+            print(f"Error al cifrar: {e}")
             sys.exit(1)
 
         if cyphertext is None:
-            print("❌ Error: La función cifrar_archivo() retornó None.")
+            print("Error: La función cifrar_archivo() retornó None.")
             print("   Completa los TODO en la función cifrar_archivo().")
             sys.exit(1)
 
@@ -266,15 +257,15 @@ def main():
         archivo_salida = archivo + ".enc"
         guardar_cifrado(archivo_salida, iv, cyphertext)
         print("─" * 40)
-        print("✅ Cifrado completado exitosamente.\n")
+        print("Cifrado completado exitosamente.\n")
 
     elif accion == "descifrar":
-        print(f"\n🔓 Descifrando '{archivo}'...")
+        print(f"\n Descifrando '{archivo}'...")
         print("─" * 40)
 
         # Cargar llave
         if not os.path.exists(ARCHIVO_LLAVE):
-            print(f"❌ Error: No se encontró el archivo de llave '{ARCHIVO_LLAVE}'.")
+            print(f"Error: No se encontró el archivo de llave '{ARCHIVO_LLAVE}'.")
             print("   Necesitas la misma llave usada para cifrar.")
             sys.exit(1)
 
@@ -287,11 +278,11 @@ def main():
         try:
             texto = descifrar(iv, cyphertext, key)
         except Exception as e:
-            print(f"❌ Error al descifrar: {e}")
+            print(f"Error al descifrar: {e}")
             sys.exit(1)
 
         if texto is None:
-            print("❌ Error: La función descifrar() retornó None.")
+            print("Error: La función descifrar() retornó None.")
             print("   Completa los TODO en la función descifrar().")
             sys.exit(1)
 
@@ -301,10 +292,10 @@ def main():
             f.write(texto)
         print(f"  Archivo descifrado guardado en: '{archivo_salida}'")
         print("─" * 40)
-        print("✅ Descifrado completado exitosamente.\n")
+        print("Descifrado completado exitosamente.\n")
 
     else:
-        print(f"❌ Acción '{accion}' no reconocida.")
+        print(f"Acción '{accion}' no reconocida.")
         print("   Usa 'cifrar' o 'descifrar'.")
         sys.exit(1)
 

@@ -1,4 +1,4 @@
-# 📖 Referencia rápida — Conceptos criptográficos
+# Referencia rápida — Conceptos criptográficos
 
 ## Cifrado simétrico
 

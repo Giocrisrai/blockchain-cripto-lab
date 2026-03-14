@@ -4,7 +4,7 @@ ejemplo_aes.py — Ejemplo RESUELTO de cifrado AES-256
 Este archivo es de REFERENCIA. Consulta este código si necesitas
 ayuda para completar los TODO en encriptador.py.
 
-⚠️ No copies y pegues: entiende cada línea antes de implementarla.
+No copies y pegues: entiende cada línea antes de implementarla.
 """
 
 from Crypto.Cipher import AES
