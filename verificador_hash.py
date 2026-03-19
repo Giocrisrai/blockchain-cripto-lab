@@ -16,8 +16,8 @@ Uso:
 Ejemplo:
     python verificador_hash.py mensaje.txt mensaje.txt.dec.txt
 
-Autor: <TU NOMBRE>
-Fecha: <FECHA>
+Autor: <JESUS MUNOZ>
+Fecha: <18/03/2026>
 """
 
 import hashlib
@@ -47,19 +47,15 @@ def calcular_hash(ruta_archivo):
     """
     # TODO: Crear el objeto SHA-256
     # Pista: sha256 = hashlib.sha256()
-    sha256 = None  # Reemplaza esto
-
+    sha256 = hashlib.sha256()  # Reemplaza esto
+    with open(ruta_archivo, "rb") as f:
+        for bloque in iter(lambda: f.read(4096), b""):
+            sha256.update(bloque)
     # TODO: Abrir el archivo en modo binario ("rb") y leer en bloques.
     #       Para cada bloque, actualizar el hash con sha256.update(bloque).
-    #
-    # Pista:
-    #   with open(ruta_archivo, "rb") as f:
-    #       for bloque in iter(lambda: f.read(4096), b""):
-    #           sha256.update(bloque)
-    pass  # Reemplaza esto
 
     # TODO: Retornar sha256.hexdigest()
-    return None  # Reemplaza esto
+    return sha256.hexdigest()  # Reemplaza esto
 
 
 def comparar_hashes(hash1, hash2):

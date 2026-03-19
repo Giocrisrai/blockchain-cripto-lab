@@ -2,13 +2,13 @@
 
 **Repositorio de laboratorio para la Actividad 1.1: Encriptador simple**
 
-| Campo | Detalle |
-|-------|---------|
-| Asignatura | **BCY0010 - Fundamentos de Blockchain** |
-| Experiencia | EA1 - Herramientas criptograficas y sistemas distribuidos |
+| Campo       | Detalle                                                        |
+| ----------- | -------------------------------------------------------------- |
+| Asignatura  | **BCY0010 - Fundamentos de Blockchain**                        |
+| Experiencia | EA1 - Herramientas criptograficas y sistemas distribuidos      |
 | Indicadores | IL1.1 (fundamentos historicos) - IL1.2 (criptografia aplicada) |
-| Duracion | 3 horas pedagogicas (Semana 1) |
-| Escuela | Informatica y Telecomunicaciones - Duoc UC |
+| Duracion    | 3 horas pedagogicas (Semana 1)                                 |
+| Escuela     | Informatica y Telecomunicaciones - Duoc UC                     |
 
 ---
 
@@ -186,22 +186,23 @@ Para la evaluacion formativa debes entregar:
 
 ## Orden sugerido de trabajo
 
-| Paso | Archivo | Que hacer |
-|------|---------|-----------|
-| 1 | `examples/ejemplo_aes.py` | Leer y ejecutar para entender AES-256 |
-| 2 | `encriptador.py` | Completar los TODO |
-| 3 | Probar cifrado/descifrado | `python encriptador.py cifrar examples/mensaje_prueba.txt` |
-| 4 | `examples/ejemplo_hash.py` | Leer y ejecutar para entender SHA-256 |
-| 5 | `verificador_hash.py` | Completar los TODO |
-| 6 | Verificar integridad | `python verificador_hash.py examples/mensaje_prueba.txt examples/mensaje_prueba.txt.dec.txt` |
-| 7 | Ejecutar tests | `python tests/test_encriptador.py && python tests/test_hash.py` |
-| 8 | Comparador (autonomo) | `python comparador_algoritmos.py examples/mensaje_prueba.txt` |
+| Paso | Archivo                    | Que hacer                                                                                    |
+| ---- | -------------------------- | -------------------------------------------------------------------------------------------- |
+| 1    | `examples/ejemplo_aes.py`  | Leer y ejecutar para entender AES-256                                                        |
+| 2    | `encriptador.py`           | Completar los TODO                                                                           |
+| 3    | Probar cifrado/descifrado  | `python encriptador.py cifrar examples/mensaje_prueba.txt`                                   |
+| 4    | `examples/ejemplo_hash.py` | Leer y ejecutar para entender SHA-256                                                        |
+| 5    | `verificador_hash.py`      | Completar los TODO                                                                           |
+| 6    | Verificar integridad       | `python verificador_hash.py examples/mensaje_prueba.txt examples/mensaje_prueba.txt.dec.txt` |
+| 7    | Ejecutar tests             | `python tests/test_encriptador.py && python tests/test_hash.py`                              |
+| 8    | Comparador (autonomo)      | `python comparador_algoritmos.py examples/mensaje_prueba.txt`                                |
 
 ---
 
 ## Referencia rapida
 
 Consulta `docs/CONCEPTOS.md` para una explicacion de:
+
 - Cifrado simetrico (AES-256, DES)
 - Modo CBC y Vector de Inicializacion (IV)
 - Funciones hash (SHA-256)
@@ -211,7 +212,7 @@ Consulta `docs/CONCEPTOS.md` para una explicacion de:
 
 ## Bibliografia
 
-- Arboledas Brihuega, D. (2017). *Criptografia sin secretos con Python*. RA-MA Editorial.
+- Arboledas Brihuega, D. (2017). _Criptografia sin secretos con Python_. RA-MA Editorial.
 - [PyCryptodome Documentation](https://pycryptodome.readthedocs.io/)
 - [Python hashlib](https://docs.python.org/3/library/hashlib.html)
 
