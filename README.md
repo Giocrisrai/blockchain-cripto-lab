@@ -1,5 +1,7 @@
 # Blockchain Cripto Lab - BCY0010
 
+> **English summary.** Cryptography lab for the Blockchain Fundamentals course (BCY0010) at Duoc UC. The rest of this document is in Spanish.
+
 **Repositorio de laboratorio para la Actividad 1.1: Encriptador simple**
 
 | Campo | Detalle |
